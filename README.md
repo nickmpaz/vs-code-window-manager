@@ -63,8 +63,7 @@ For this extension to work, the `workbench.editor.closeEmptyGroups` setting must
 
 This extension contributes the following settings:
 
-- `vs-code-window-manager.enable`: Enable/disable this extension.
-- `vs-code-window-manager.layout`: The layout to use.
+- `vs-code-window-manager.layout`: The layout to use - defaults to `tall`.
 
 ## Known Issues
 
