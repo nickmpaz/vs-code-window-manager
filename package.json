@@ -1,0 +1,111 @@
+{
+  "name": "vs-code-window-manager",
+  "publisher": "npaz",
+  "license": "MIT",
+  "displayName": "VS Code Window Manager",
+  "description": "VS Code window manager",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.72.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:vs-code-window-manager.newEditorGroup",
+    "onCommand:vs-code-window-manager.closeEditorGroup",
+    "onCommand:vs-code-window-manager.focusNextEditorGroup",
+    "onCommand:vs-code-window-manager.focusPreviousEditorGroup",
+    "onCommand:vs-code-window-manager.swapNextEditorGroup",
+    "onCommand:vs-code-window-manager.swapPreviousEditorGroup",
+    "onCommand:vs-code-window-manager.toggleEditorGroupSpotlight"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "vs-code-window-manager.newEditorGroup",
+        "title": "VS Code WM: New Editor Group"
+      },
+      {
+        "command": "vs-code-window-manager.closeEditorGroup",
+        "title": "VS Code WM: Close Editor Group"
+      },
+      {
+        "command": "vs-code-window-manager.focusNextEditorGroup",
+        "title": "VS Code WM: Focus Next Editor Group"
+      },
+      {
+        "command": "vs-code-window-manager.focusPreviousEditorGroup",
+        "title": "VS Code WM: Focus Previous Editor Group"
+      },
+      {
+        "command": "vs-code-window-manager.swapNextEditorGroup",
+        "title": "VS Code WM: Swap Next Editor Group"
+      },
+      {
+        "command": "vs-code-window-manager.swapPreviousEditorGroup",
+        "title": "VS Code WM: Swap Previous Editor Group"
+      },
+      {
+        "command": "vs-code-window-manager.toggleEditorGroupSpotlight",
+        "title": "VS Code WM: Toggle Editor Group Spotlight"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "vs-code-window-manager.newEditorGroup",
+        "key": "ctrl+space"
+      },
+      {
+        "command": "vs-code-window-manager.closeEditorGroup",
+        "key": "ctrl+q"
+      },
+      {
+        "command": "vs-code-window-manager.focusNextEditorGroup",
+        "key": "ctrl+j"
+      },
+      {
+        "command": "vs-code-window-manager.focusPreviousEditorGroup",
+        "key": "ctrl+k"
+      },
+      {
+        "command": "vs-code-window-manager.swapNextEditorGroup",
+        "key": "ctrl+shift+j"
+      },
+      {
+        "command": "vs-code-window-manager.swapPreviousEditorGroup",
+        "key": "ctrl+shift+k"
+      },
+      {
+        "command": "vs-code-window-manager.toggleEditorGroupSpotlight",
+        "key": "ctrl+m"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/glob": "^8.0.0",
+    "@types/mocha": "^10.0.0",
+    "@types/node": "16.x",
+    "@types/vscode": "^1.72.0",
+    "@typescript-eslint/eslint-plugin": "^5.38.1",
+    "@typescript-eslint/parser": "^5.38.1",
+    "@vscode/test-electron": "^2.1.5",
+    "eslint": "^8.24.0",
+    "glob": "^8.0.3",
+    "mocha": "^10.0.0",
+    "typescript": "^4.8.4"
+  },
+  "dependencies": {
+    "global": "^4.4.0",
+    "vsce": "^2.11.0"
+  }
+}
