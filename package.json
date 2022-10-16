@@ -1,6 +1,10 @@
 {
   "name": "vs-code-window-manager",
   "publisher": "npaz",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nickmpaz/vs-code-window-manager.git"
+  },
   "license": "MIT",
   "displayName": "VS Code Window Manager",
   "description": "VS Code window manager",
@@ -81,7 +85,21 @@
         "command": "vs-code-window-manager.toggleEditorGroupSpotlight",
         "key": "ctrl+m"
       }
-    ]
+    ],
+    "configuration": {
+      "title": "VS Code Window Manager",
+      "properties": {
+        "vs-code-window-manager.layout": {
+          "type": "string",
+          "default": "tall",
+          "enum": [
+            "tall",
+            "wide"
+          ],
+          "description": "The Editor Group layout to use"
+        }
+      }
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",

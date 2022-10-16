@@ -1,9 +1,13 @@
-import { Tall } from "./tall";
-import { Wide } from "./wide";
+import * as vscode from "vscode";
+import { layouts } from "./definitions/constants";
+import { Layouts } from "./definitions/types";
 
 class LayoutFactory {
   public static getLayout() {
-    return new Wide();
+    const layout = vscode.workspace
+      .getConfiguration("vs-code-window-manager")
+      .get("layout") as Layouts;
+    return layouts[layout];
   }
 }
 
