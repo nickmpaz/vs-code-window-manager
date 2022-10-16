@@ -1,79 +1,79 @@
-# vs-code-window-manager README
+# vs-code-window-manager
 
 This VS Code extension provides [dynamic tiling](https://en.wikipedia.org/wiki/Dynamic_window_manager) features on top of VS Code's [Editor Groups](https://code.visualstudio.com/docs/getstarted/userinterface#_editor-groups). In short, VS Code `vs-code-window-manager` manages the positions of your editors so that you don't have to. When you open a window it will automatically tile into the layout of your choice. VS Code Dynamic Layouts is inspired by tiling window managers like XMonad, DWM, and Awesome, and should feel familiar to those who use them.
 
-
 ## Layouts
-VS Code Dynamic Layouts supports the following layouts.
-### Tall
-A.K.A. the "Master and Stack" layout. Your first window will be positioned on the left half of the screen, and the rest will be stacked on the right half.
 
-![feature X](./images/layout-tall.png)
+VS Code Dynamic Layouts supports the following layouts.
+
+### Tall
+
+Your first window will be positioned on the left half of the screen, and the rest will be place in a column on the right half.
+
+![feature X](https://raw.githubusercontent.com/nickmpaz/vs-code-window-manager/main/images/layout-tall.png)
+
+### Wide
+
+Your first window will be positioned on the top half of the screen, and the rest will be place in a row on the bottom half.
+
+![feature X](https://raw.githubusercontent.com/nickmpaz/vs-code-window-manager/main/images/layout-wide.png)
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+### New Editor Group (vs-code-window-manager.newEditorGroup)
 
-For example if there is an image subfolder under your extension project workspace:
+- Open a new Editor Group into your layout.
+- Default keybind: `ctrl+space`
 
-\!\[feature X\]\(images/feature-x.png\)
+### Close Editor Group (vs-code-window-manager.closeEditorGroup)
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+- Close the active Editor Group.
+- Default keybind: `ctrl+q`
+
+### Focus Next Editor Group (vs-code-window-manager.focusNextEditorGroup)
+
+- Focus the next Editor Group in your layout.
+- Default keybind: `ctrl+j`
+
+### Focus Previous Editor Group (vs-code-window-manager.focusPreviousEditorGroup)
+
+- Focus the previous Editor Group in your layout.
+- Default keybind: `ctrl+k`
+
+### Swap Next Editor Group (vs-code-window-manager.swapNextEditorGroup)
+
+- Swap the active Editor Group with the next group in your layout.
+- Default keybind: `ctrl+shift+j`
+
+### Swap Previous Editor Group (vs-code-window-manager.swapPreviousEditorGroup)
+
+- Swap the active Editor Group with the previous group in your layout.
+- Default keybind: `ctrl+shift+k`
+
+### Toggle Editor Group Spotlight (vs-code-window-manager.toggleEditorGroupSpotlight)
+
+- Toggle spotlight mode. In spotlight mode, the active Editor Group's size will be increased.
+- Default keybind: `ctrl+m`
 
 ## Requirements
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+For this extension to work, the `workbench.editor.closeEmptyGroups` setting must be set to `false`.
 
 ## Extension Settings
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
-
-For example:
-
 This extension contributes the following settings:
 
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
+- `vs-code-window-manager.enable`: Enable/disable this extension.
+- `vs-code-window-manager.layout`: The layout to use.
 
 ## Known Issues
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+- When swapping editor groups, your cursor position may change
 
 ## Release Notes
 
-Users appreciate release notes as you update your extension.
-
 ### 1.0.0
 
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
+- Initial release of `vs-code-window-manager`
 
 ---
-
-## Following extension guidelines
-
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
-
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
-
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
