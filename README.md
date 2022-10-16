@@ -1,6 +1,6 @@
 # vs-code-window-manager README
 
-This VS Code extension provides [dynamic tiling](https://en.wikipedia.org/wiki/Dynamic_window_manager) features on top of VS Code's [editor groups](https://code.visualstudio.com/docs/getstarted/userinterface#_editor-groups). In short, VS Code `vs-code-window-manager` manages the positions of your editors so that you don't have to. When you open a window it will automatically tile into the layout of your choice. VS Code Dynamic Layouts is inspired by tiling window managers like XMonad, DWM, and Awesome, and should feel familiar to those who use them.
+This VS Code extension provides [dynamic tiling](https://en.wikipedia.org/wiki/Dynamic_window_manager) features on top of VS Code's [Editor Groups](https://code.visualstudio.com/docs/getstarted/userinterface#_editor-groups). In short, VS Code `vs-code-window-manager` manages the positions of your editors so that you don't have to. When you open a window it will automatically tile into the layout of your choice. VS Code Dynamic Layouts is inspired by tiling window managers like XMonad, DWM, and Awesome, and should feel familiar to those who use them.
 
 
 ## Layouts
@@ -8,7 +8,7 @@ VS Code Dynamic Layouts supports the following layouts.
 ### Tall
 A.K.A. the "Master and Stack" layout. Your first window will be positioned on the left half of the screen, and the rest will be stacked on the right half.
 
-![feature X](images/layout-tall.png)
+![feature X](./images/layout-tall.png)
 
 ## Features
 
