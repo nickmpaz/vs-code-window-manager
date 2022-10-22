@@ -1,46 +1,35 @@
 import * as vscode from "vscode";
-import { extensionNamespace } from "../definitions/constants";
 import { maxEditorGroups } from "./definitions/constants";
-import {
-  GlobalStateKey,
-  Orientation,
-  VscodeCommand,
-} from "./definitions/types";
-
-// moveActiveEditor - Move the active editor by tabs or groups
-
-// Active editor move argument - Argument Properties:
-// 'to': String value providing where to move.
-// 'by': String value providing the unit for move (by tab or by group).
-// 'value': Number value providing how many positions or an absolute position to move.
+import { getActiveViewColumn, getNumEditorGroups } from "./definitions/helpers";
+import { VscodeCommand } from "./definitions/types";
 
 abstract class BaseLayout {
   context: vscode.ExtensionContext;
 
   public abstract setLayout(): Promise<void>;
 
+  public abstract isActiveGroupAtStartOfGroups(): boolean;
+
+  public abstract isActiveGroupAtEndOfGroups(): boolean;
+
+  public abstract swapNextWithinGroups(): Promise<void>;
+
+  public abstract swapPreviousWithinGroups(): Promise<void>;
+
   public constructor(context: vscode.ExtensionContext) {
     this.context = context;
   }
 
-  public getCommandLock(): number {
-    return (
-      this.context.globalState.get(
-        `${extensionNamespace}.${GlobalStateKey.commandLock}`
-      ) ?? 0
-    );
+  public isActiveEditorGroupFirst() {
+    return getActiveViewColumn() === 1;
   }
 
-  public setCommandLock(time: number): Thenable<void> {
-    return this.context.globalState.update(
-      `${extensionNamespace}.${GlobalStateKey.commandLock}`,
-      time
-    );
+  public isActiveEditorGroupLast() {
+    return getActiveViewColumn() === getNumEditorGroups();
   }
 
   public async newEditorGroup() {
-    const { all: tabGroups } = vscode.window.tabGroups;
-    if (tabGroups.length >= maxEditorGroups) {
+    if (getNumEditorGroups() >= maxEditorGroups) {
       return;
     }
     await vscode.commands.executeCommand(VscodeCommand.splitEditorDown);
@@ -53,69 +42,67 @@ abstract class BaseLayout {
   }
 
   public async focusNextEditorGroup() {
+    if (this.isActiveEditorGroupLast()) {
+      return;
+    }
     await vscode.commands.executeCommand(VscodeCommand.focusNextEditorGroup);
   }
 
   public async focusPreviousEditorGroup() {
+    if (this.isActiveEditorGroupFirst()) {
+      return;
+    }
     await vscode.commands.executeCommand(
       VscodeCommand.focusPreviousEditorGroup
     );
   }
 
   public async swapNextEditorGroup() {
-    const { all: tabGroups } = vscode.window.tabGroups;
-
-    if (tabGroups.length <= 1) {
+    if (this.isActiveEditorGroupLast()) {
       return;
     }
-    const { viewColumn } = vscode.window.activeTextEditor ?? {};
-    const isLastEditorGroup = tabGroups.length === viewColumn;
 
-    await vscode.commands.executeCommand(
-      isLastEditorGroup
-        ? VscodeCommand.moveEditorToFirstGroup
-        : VscodeCommand.moveEditorToNextGroup
-    );
-    await vscode.commands.executeCommand(
-      VscodeCommand.openPreviousEditorInGroup
-    );
-    await vscode.commands.executeCommand(
-      isLastEditorGroup
-        ? VscodeCommand.moveEditorToLastGroup
-        : VscodeCommand.moveEditorToPreviousGroup
-    );
-    await vscode.commands.executeCommand(VscodeCommand.focusNextEditorGroup);
+    this.isActiveGroupAtEndOfGroups()
+      ? await this.swapNextAcrossGroups()
+      : await this.swapNextWithinGroups();
   }
 
   public async swapPreviousEditorGroup() {
-    const { all: tabGroups } = vscode.window.tabGroups;
-
-    if (tabGroups.length <= 1) {
+    if (this.isActiveEditorGroupFirst()) {
       return;
     }
-    const { viewColumn } = vscode.window.activeTextEditor ?? {};
-    const isFirstEditorGroup = viewColumn === 1;
 
-    await vscode.commands.executeCommand(
-      isFirstEditorGroup
-        ? VscodeCommand.moveEditorToLastGroup
-        : VscodeCommand.moveEditorToPreviousGroup
-    );
-    await vscode.commands.executeCommand(
-      VscodeCommand.openPreviousEditorInGroup
-    );
-    await vscode.commands.executeCommand(
-      isFirstEditorGroup
-        ? VscodeCommand.moveEditorToFirstGroup
-        : VscodeCommand.moveEditorToNextGroup
-    );
-    await vscode.commands.executeCommand(
-      VscodeCommand.focusPreviousEditorGroup
-    );
+    this.isActiveGroupAtStartOfGroups()
+      ? await this.swapPreviousAcrossGroups()
+      : await this.swapPreviousWithinGroups();
   }
 
   public async toggleEditorGroupSpotlight() {
     await vscode.commands.executeCommand(VscodeCommand.toggleEditorWidths);
+  }
+
+  public async swapNextAcrossGroups(): Promise<void> {
+    await vscode.commands.executeCommand(VscodeCommand.moveEditorToNextGroup);
+    await vscode.commands.executeCommand(
+      VscodeCommand.openPreviousEditorInGroup
+    );
+    await vscode.commands.executeCommand(
+      VscodeCommand.moveEditorToPreviousGroup
+    );
+    await vscode.commands.executeCommand(VscodeCommand.focusNextEditorGroup);
+  }
+
+  public async swapPreviousAcrossGroups(): Promise<void> {
+    await vscode.commands.executeCommand(
+      VscodeCommand.moveEditorToPreviousGroup
+    );
+    await vscode.commands.executeCommand(
+      VscodeCommand.openPreviousEditorInGroup
+    );
+    await vscode.commands.executeCommand(VscodeCommand.moveEditorToNextGroup);
+    await vscode.commands.executeCommand(
+      VscodeCommand.focusPreviousEditorGroup
+    );
   }
 }
 

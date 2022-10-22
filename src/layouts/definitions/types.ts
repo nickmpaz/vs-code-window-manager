@@ -11,6 +11,10 @@ enum VscodeCommand {
   moveEditorToPreviousGroup = "workbench.action.moveEditorToPreviousGroup",
   moveEditorToFirstGroup = "workbench.action.moveEditorToFirstGroup",
   moveEditorToLastGroup = "workbench.action.moveEditorToLastGroup",
+  moveActiveEditorGroupDown = "workbench.action.moveActiveEditorGroupDown",
+  moveActiveEditorGroupUp = "workbench.action.moveActiveEditorGroupUp",
+  moveActiveEditorGroupLeft = "workbench.action.moveActiveEditorGroupLeft",
+  moveActiveEditorGroupRight = "workbench.action.moveActiveEditorGroupRight",
   openPreviousEditorInGroup = "workbench.action.previousEditorInGroup",
 }
 
@@ -23,9 +27,4 @@ enum ConfigurationOption {
   layout = "layout",
 }
 
-enum GlobalStateKey {
-  commandLock = "commandLock",
-  commandTime = "commandTime",
-}
-
-export { VscodeCommand, ConfigurationOption, Orientation, GlobalStateKey };
+export { VscodeCommand, ConfigurationOption, Orientation };

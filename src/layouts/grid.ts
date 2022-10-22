@@ -1,28 +1,25 @@
 import * as vscode from "vscode";
 import { BaseLayout } from "./baseLayout";
+import {
+  chunkArray,
+  getActiveViewColumn,
+  getNumEditorGroups,
+  getNumGridColumns,
+} from "./definitions/helpers";
 import { Orientation, VscodeCommand } from "./definitions/types";
 
 class Grid extends BaseLayout {
-  private static chunkArray(arr: unknown[], chunkSize: number): any {
-    return arr.length > chunkSize
-      ? [
-          arr.slice(0, chunkSize),
-          ...Grid.chunkArray(arr.slice(chunkSize), chunkSize),
-        ]
-      : [arr];
-  }
-
   public async setLayout(): Promise<void> {
-    const { all: tabGroups } = vscode.window.tabGroups;
+    const numEditorGroups = getNumEditorGroups();
 
-    if (tabGroups.length <= 1) {
+    if (numEditorGroups <= 1) {
       return;
     }
 
-    const numRows = Math.ceil(Math.sqrt(tabGroups.length));
-    const grid: {}[][] = Grid.chunkArray(
-      new Array(tabGroups.length).fill({}),
-      numRows
+    const numGridColumns = getNumGridColumns();
+    const grid = chunkArray<{}>(
+      new Array(numEditorGroups).fill({}),
+      numGridColumns
     );
     const gridLayout = grid.map((gridRow: {}[]) => ({
       groups: gridRow,
@@ -33,6 +30,37 @@ class Grid extends BaseLayout {
       groups: gridLayout,
     });
   }
+
+  public isActiveGroupAtStartOfGroups(): boolean {
+    const numGridColumns = getNumGridColumns();
+    const activeViewColumn = getActiveViewColumn();
+    if (!activeViewColumn) {
+      throw new Error("No active view column");
+    }
+    return activeViewColumn % numGridColumns === 1;
+  }
+
+  public isActiveGroupAtEndOfGroups(): boolean {
+    const numGridColumns = getNumGridColumns();
+    const activeViewColumn = getActiveViewColumn();
+    if (!activeViewColumn) {
+      throw new Error("No active view column");
+    }
+    return activeViewColumn % numGridColumns === 0;
+  }
+
+  public async swapNextWithinGroups(): Promise<void> {
+    await vscode.commands.executeCommand(
+      VscodeCommand.moveActiveEditorGroupRight
+    );
+  }
+
+  public async swapPreviousWithinGroups(): Promise<void> {
+    await vscode.commands.executeCommand(
+      VscodeCommand.moveActiveEditorGroupLeft
+    );
+  }
+
 }
 
 export { Grid };
