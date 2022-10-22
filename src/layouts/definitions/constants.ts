@@ -2,14 +2,12 @@ import { Grid } from "../grid";
 import { Tall } from "../tall";
 import { Wide } from "../wide";
 
-const layouts: Record<string, Tall | Wide | Grid> = {
-  tall: new Tall(),
-  wide: new Wide(),
-  grid: new Grid(),
+const layouts: Record<string, typeof Tall | typeof Wide | typeof Grid> = {
+  tall: Tall,
+  wide: Wide,
+  grid: Grid,
 };
-
-const configurationNamespace = "vs-code-window-manager";
 
 const maxEditorGroups = 16;
 
-export { layouts, configurationNamespace, maxEditorGroups };
+export { layouts, maxEditorGroups };

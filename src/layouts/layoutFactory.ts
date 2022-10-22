@@ -1,14 +1,16 @@
 import * as vscode from "vscode";
-import { configurationNamespace, layouts } from "./definitions/constants";
+import { extensionNamespace } from "../definitions/constants";
+import { layouts } from "./definitions/constants";
 import { ConfigurationOption } from "./definitions/types";
 
 class LayoutFactory {
-  public static getLayout() {
+  public static getLayout(context: vscode.ExtensionContext) {
     const configuredLayout = vscode.workspace
-      .getConfiguration(configurationNamespace)
+      .getConfiguration(extensionNamespace)
       .get(ConfigurationOption.layout) as string;
 
-    return layouts?.[configuredLayout] ?? Object.values(layouts)[0];
+    const Layout = layouts?.[configuredLayout] ?? Object.values(layouts)[0];
+    return new Layout(context);
   }
 }
 

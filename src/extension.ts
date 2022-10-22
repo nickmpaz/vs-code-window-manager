@@ -1,13 +1,13 @@
 import * as vscode from "vscode";
-import { LayoutFactory } from "./layouts/layoutFactory";
-import { commandPrefix, commands } from "./definitions/constants";
+import { extensionNamespace } from "./definitions/constants";
+import { commands } from "./commands";
 
 export function activate(context: vscode.ExtensionContext) {
-  commands.forEach((command) =>
-    vscode.commands.registerCommand(`${commandPrefix}.${command}`, () =>
-      LayoutFactory.getLayout()[command]()
-    )
-  );
+  for (const [name, action] of Object.entries(commands)) {
+    vscode.commands.registerCommand(`${extensionNamespace}.${name}`, () =>
+      action(context)
+    );
+  }
 }
 
 export function deactivate() {}

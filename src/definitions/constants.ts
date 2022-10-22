@@ -1,15 +1,3 @@
-import { BaseLayout } from "../layouts/baseLayout";
+const extensionNamespace = "vs-code-window-manager";
 
-const commandPrefix = "vs-code-window-manager";
-
-const commands: (keyof BaseLayout)[] = [
-  "newEditorGroup",
-  "closeEditorGroup",
-  "focusNextEditorGroup",
-  "focusPreviousEditorGroup",
-  "swapNextEditorGroup",
-  "swapPreviousEditorGroup",
-  "toggleEditorGroupSpotlight",
-];
-
-export { commandPrefix, commands };
+export { extensionNamespace };
