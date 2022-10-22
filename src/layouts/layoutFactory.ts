@@ -1,13 +1,13 @@
 import * as vscode from "vscode";
-import { layouts } from "./definitions/constants";
-import { Layouts } from "./definitions/types";
+import { configurationNamespace, layouts } from "./definitions/constants";
+import { ConfigurationOption, Layout } from "./definitions/types";
 
 class LayoutFactory {
   public static getLayout() {
-    const layout = vscode.workspace
-      .getConfiguration("vs-code-window-manager")
-      .get("layout") as Layouts;
-    return layouts[layout];
+    const configuredLayout = vscode.workspace
+      .getConfiguration(configurationNamespace)
+      .get(ConfigurationOption.layout) as Layout;
+    return layouts[configuredLayout];
   }
 }
 

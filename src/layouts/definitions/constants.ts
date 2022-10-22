@@ -1,10 +1,15 @@
+import { Grid } from "../grid";
 import { Tall } from "../tall";
 import { Wide } from "../wide";
-import { Layouts } from "./types";
 
 const layouts = {
-  [Layouts.tall]: new Tall(),
-  [Layouts.wide]: new Wide(),
+  tall: new Tall(),
+  wide: new Wide(),
+  grid: new Grid(),
 };
 
-export { layouts };
+const configurationNamespace = "vs-code-window-manager";
+
+const maxEditorGroups = 16;
+
+export { layouts, configurationNamespace, maxEditorGroups };

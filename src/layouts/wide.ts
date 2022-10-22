@@ -1,5 +1,6 @@
 import * as vscode from "vscode";
 import { BaseLayout } from "./baseLayout";
+import { Orientation, VscodeCommand } from "./definitions/types";
 
 class Wide extends BaseLayout {
   public async setLayout() {
@@ -9,8 +10,8 @@ class Wide extends BaseLayout {
       return;
     }
 
-    await vscode.commands.executeCommand("vscode.setEditorLayout", {
-      orientation: 1,
+    await vscode.commands.executeCommand(VscodeCommand.setEditorLayout, {
+      orientation: Orientation.horizontal,
       groups: [
         { groups: [{}] },
         { groups: new Array(tabGroups.length - 1).fill({}) },

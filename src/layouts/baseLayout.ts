@@ -1,36 +1,42 @@
 import * as vscode from "vscode";
+import { maxEditorGroups } from "./definitions/constants";
+import { VscodeCommand } from "./definitions/types";
 
 abstract class BaseLayout {
   public abstract setLayout(): Promise<void>;
 
   public async newEditorGroup() {
-    await vscode.commands.executeCommand("workbench.action.splitEditorDown");
+    const { all: tabGroups } = vscode.window.tabGroups;
+    if (tabGroups.length >= maxEditorGroups) {
+      return;
+    }
+    await vscode.commands.executeCommand(VscodeCommand.splitEditorDown);
     await this.setLayout();
   }
 
   public async closeEditorGroup() {
-    await vscode.commands.executeCommand(
-      "workbench.action.closeEditorsAndGroup"
-    );
+    await vscode.commands.executeCommand(VscodeCommand.closeEditorGroup);
     await this.setLayout();
   }
 
   public async focusNextEditorGroup() {
-    await vscode.commands.executeCommand("workbench.action.focusNextGroup");
+    await vscode.commands.executeCommand(VscodeCommand.focusNextEditorGroup);
   }
 
   public async focusPreviousEditorGroup() {
-    await vscode.commands.executeCommand("workbench.action.focusPreviousGroup");
+    await vscode.commands.executeCommand(
+      VscodeCommand.focusPreviousEditorGroup
+    );
   }
 
   public async swapNextEditorGroup() {
     const { document: activeDocument, viewColumn: activeViewColumn } =
       vscode.window.activeTextEditor || {};
-    await vscode.commands.executeCommand("workbench.action.closeActiveEditor");
-    await vscode.commands.executeCommand("workbench.action.focusNextGroup");
+    await vscode.commands.executeCommand(VscodeCommand.closeActiveEditor);
+    await vscode.commands.executeCommand(VscodeCommand.focusNextEditorGroup);
     const { document: swappedDocument, viewColumn: swappedViewColumn } =
       vscode.window.activeTextEditor || {};
-    await vscode.commands.executeCommand("workbench.action.closeActiveEditor");
+    await vscode.commands.executeCommand(VscodeCommand.closeActiveEditor);
 
     if (
       !activeViewColumn ||
@@ -51,11 +57,13 @@ abstract class BaseLayout {
   public async swapPreviousEditorGroup() {
     const { document: activeDocument, viewColumn: activeViewColumn } =
       vscode.window.activeTextEditor || {};
-    await vscode.commands.executeCommand("workbench.action.closeActiveEditor");
-    await vscode.commands.executeCommand("workbench.action.focusPreviousGroup");
+    await vscode.commands.executeCommand(VscodeCommand.closeActiveEditor);
+    await vscode.commands.executeCommand(
+      VscodeCommand.focusPreviousEditorGroup
+    );
     const { document: swappedDocument, viewColumn: swappedViewColumn } =
       vscode.window.activeTextEditor || {};
-    await vscode.commands.executeCommand("workbench.action.closeActiveEditor");
+    await vscode.commands.executeCommand(VscodeCommand.closeActiveEditor);
 
     if (
       !activeViewColumn ||
@@ -74,7 +82,7 @@ abstract class BaseLayout {
   }
 
   public async toggleEditorGroupSpotlight() {
-    await vscode.commands.executeCommand("workbench.action.toggleEditorWidths");
+    await vscode.commands.executeCommand(VscodeCommand.toggleEditorWidths);
   }
 }
 
