@@ -4,10 +4,14 @@ import { ConfigurationOption, Layout } from "./definitions/types";
 
 class LayoutFactory {
   public static getLayout() {
-    const configuredLayout = vscode.workspace
-      .getConfiguration(configurationNamespace)
-      .get(ConfigurationOption.layout) as Layout;
-    return layouts[configuredLayout];
+    try {
+      const configuredLayout = vscode.workspace
+        .getConfiguration(configurationNamespace)
+        .get(ConfigurationOption.layout) as Layout;
+      return layouts[configuredLayout];
+    } catch (err) {
+      return Object.values(layouts)[0];
+    }
   }
 }
 
