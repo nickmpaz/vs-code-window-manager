@@ -2,7 +2,7 @@ import { Grid } from "../grid";
 import { Tall } from "../tall";
 import { Wide } from "../wide";
 
-const layouts = {
+const layouts: Record<string, Tall | Wide | Grid> = {
   tall: new Tall(),
   wide: new Wide(),
   grid: new Grid(),

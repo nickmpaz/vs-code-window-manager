@@ -1,8 +1,3 @@
-enum Layout {
-  tall = "tall",
-  wide = "wide",
-}
-
 enum VscodeCommand {
   focusNextEditorGroup = "workbench.action.focusNextGroup",
   focusPreviousEditorGroup = "workbench.action.focusPreviousGroup",
@@ -22,4 +17,4 @@ enum ConfigurationOption {
   layout = "layout",
 }
 
-export { Layout, VscodeCommand, ConfigurationOption, Orientation };
+export { VscodeCommand, ConfigurationOption, Orientation };
