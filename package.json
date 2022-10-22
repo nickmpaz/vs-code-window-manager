@@ -94,7 +94,8 @@
           "default": "tall",
           "enum": [
             "tall",
-            "wide"
+            "wide",
+            "grid"
           ],
           "description": "The Editor Group layout to use"
         }
