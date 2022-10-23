@@ -112,7 +112,7 @@ This extension contributes the following settings:
 
 - Add configuration for layout type
 
-### 1.1
+### 1.1.0
 
 - Add `grid` layout
 - Make swapping editors smoother
