@@ -4,7 +4,33 @@ This VS Code extension provides [dynamic tiling](https://en.wikipedia.org/wiki/D
 
 ## Install
 
-You can install this extension via VS Code by searching the extension marketplace for `vs-code-window-manager`.
+You can install this extension with the command `ext install npaz.vs-code-window-manager`.
+
+Alternatively, you can install the extension by searching for `vs-code-window-manger` in the Extensions tab.
+
+## Requirements
+
+This extension requires certain settings to work. In your `settings.json`:
+
+```
+{
+	"workbench.editor.closeEmptyGroups": false,
+}
+```
+
+If you use the VS Code Vim extension, you will also need:
+
+```
+{
+	vim.handleKeys":{
+		"<C-j>": false,
+		"<C-k>": false,
+		"<C-space>": false,
+		"<C-q>": false,
+		"<C-m>": false
+	},
+}
+```
 
 ## Layouts
 
@@ -21,6 +47,12 @@ Your first window will be positioned on the left half of the screen, and the res
 Your first window will be positioned on the top half of the screen, and the rest will be place in a row on the bottom half.
 
 ![feature X](https://raw.githubusercontent.com/nickmpaz/vs-code-window-manager/main/images/layout-wide.png)
+
+### Grid
+
+Your windows will be positioned in a grid ordered by column, then row
+
+![feature X](https://raw.githubusercontent.com/nickmpaz/vs-code-window-manager/main/images/layout-grid.png)
 
 ## Features
 
@@ -59,10 +91,6 @@ Your first window will be positioned on the top half of the screen, and the rest
 - Toggle spotlight mode. In spotlight mode, the active Editor Group's size will be increased.
 - Default keybind: `ctrl+m`
 
-## Requirements
-
-For this extension to work, the `workbench.editor.closeEmptyGroups` setting must be set to `false`.
-
 ## Extension Settings
 
 This extension contributes the following settings:
@@ -72,6 +100,7 @@ This extension contributes the following settings:
 ## Known Issues
 
 - When swapping editor groups, your cursor position may change
+- Swapping editor groups very rapidly may bork your editors
 
 ## Release Notes
 
@@ -82,5 +111,10 @@ This extension contributes the following settings:
 ### 1.0.1
 
 - Add configuration for layout type
+
+### 1.1
+
+- Add `grid` layout
+- Make swapping editors smoother
 
 ---
