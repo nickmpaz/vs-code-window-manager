@@ -102,19 +102,32 @@ This extension contributes the following settings:
 - When swapping editor groups, your cursor position may change
 - Swapping editor groups very rapidly may bork your editors
 
-## Release Notes
+# Changelog
 
-### 1.0.0
+All notable changes to this project will be documented in this file.
 
-- Initial release of `vs-code-window-manager`
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-### 1.0.1
+## [Unreleased]
 
-- Add configuration for layout type
+## [1.1.0] - 2022-10-23
 
-### 1.1.0
+### Added
 
-- Add `grid` layout
-- Make swapping editors smoother
+- `grid` layout
 
----
+### Changed
+
+- Updated swapping to be smoother
+
+## [1.0.1] - 2022-10-16
+
+### Added
+
+- Configuration for layout type
+
+## [1.0.0] - 2022-10-16
+
+### Added
+
+- Initial release
